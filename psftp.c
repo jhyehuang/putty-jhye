@@ -1172,6 +1172,20 @@ int sftp_cmd_pwd(struct sftp_command *cmd)
 }
 
 /*
+ * for transer format ascii.
+ */
+int sftp_cmd_ascii(struct sftp_command *cmd)
+{
+    if (back == NULL) {
+	not_connected();
+	return 0;
+    }
+
+    printf("for transer format is %s\n", pwd);
+    return 1;
+}
+
+/*
  * Get a file and save it at the local end. We have three very
  * similar commands here. The basic one is `get'; `reget' differs
  * in that it checks for the existence of the destination file and
@@ -2078,6 +2092,12 @@ static struct sftp_cmd_lookup {
 	    "\n"
 	    "  Print the current remote working directory for your SFTP session.\n",
 	    sftp_cmd_pwd
+    },
+    {
+	"ascii", TRUE, "transfer format ascii",
+	    "\n"
+	    "  transfer format ascii.\n",
+	    sftp_cmd_ascii
     },
     {
 	"quit", TRUE, "bye", NULL,
